@@ -12,6 +12,14 @@ const addCategory = async (req, res) => {
         .json({ message: "please provide name of category" });
     }
 
+    const isAvailable = await CategoryModel.findOne({ name });
+
+    if (isAvailable) {
+      return res.status(400).json({
+        status: false,
+        message: "Category is alredy available",
+      });
+    }
     const category = await CategoryModel.create({
       name,
       description: description ? description : "",

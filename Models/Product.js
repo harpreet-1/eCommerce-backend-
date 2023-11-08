@@ -15,11 +15,12 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     image: {
-      type: String, // Array of image URLs
+      type: String,
       required: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
       required: true,
     },
 

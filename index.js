@@ -5,6 +5,7 @@ const dbConnection = require("./db");
 const usersRouter = require("./routes/user.routes");
 
 const categoryRouter = require("./routes/category.routes");
+const productRouter = require("./routes/product.routes");
 
 dotenv.config();
 const port = process.env.PORT || 8000;
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", usersRouter);
 app.use("/category", categoryRouter);
+app.use("/product", productRouter);
 
 app.listen(port, () => {
   dbConnection();
