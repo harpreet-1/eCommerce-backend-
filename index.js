@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const dbConnection = require("./db");
 const usersRouter = require("./routes/user.routes");
 
+const categoryRouter = require("./routes/category.routes");
+
 dotenv.config();
 const port = process.env.PORT || 8000;
 
@@ -16,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", usersRouter);
+app.use("/category", categoryRouter);
 
 app.listen(port, () => {
   dbConnection();
