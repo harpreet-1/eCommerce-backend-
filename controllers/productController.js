@@ -54,4 +54,27 @@ const addProduct = async (req, res) => {
   }
 };
 
-module.exports = { addProduct, getProducts };
+//(^_^)=======================    Get Product details with id      =========================
+
+const getProductDetails = async (req, res) => {
+  try {
+    const product = await ProductModel.findById(req.params.id);
+
+    if (!product) {
+      return res.status(400).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    return res.status(200).json({ success: true, product });
+  } catch (error) {
+    console.log("error from get product details :id ", error);
+
+    res.status(500).json({
+      status: false,
+      message: "Something went wrong ! Try again later .",
+    });
+  }
+};
+module.exports = { addProduct, getProducts, getProductDetails };
