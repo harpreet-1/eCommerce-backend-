@@ -19,14 +19,24 @@ This is the backend server for the Triveous e-commerce application. It provides 
    ```bash
    git clone https://github.com/your-username/triveous-backend.git
 
-Tech Stack
-Node.js: JavaScript runtime for server-side development.
-Express: Web application framework for Node.js.
-MongoDB: NoSQL database for storing product, user, and order data.
-Mongoose: ODM library for MongoDB and Node.js.
-Swagger: API documentation tool for documenting and testing APIs.
-Links
 Deployed Link: https://real-rose-springbok-garb.cyclic.app
+
 Swagger Docs:https://real-rose-springbok-garb.cyclic.app/api-docs
+
+
+Tech Stack
+
+Node.js: JavaScript runtime for server-side development.
+
+Express: Web application framework for Node.js.
+
+MongoDB: NoSQL database for storing product, user, and order data.
+
+Mongoose: ODM library for MongoDB and Node.js.
+
+Swagger: API documentation tool for documenting and testing APIs.
+
+
+
 
 
