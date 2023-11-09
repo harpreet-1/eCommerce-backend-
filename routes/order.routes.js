@@ -71,7 +71,7 @@ orderRouter.post("/place", placeOrder);
  *         description: Error placing the order
  */
 
-orderRouter.post("/single", singleOrder);
+orderRouter.post("/single/:productId", singleOrder);
 
 /**
  * @swagger
