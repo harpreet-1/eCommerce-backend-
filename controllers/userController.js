@@ -86,7 +86,7 @@ const loginUser = async (req, res) => {
 
     if (!isMatch) {
       return res.status(401).json({
-        status: "error",
+        success: false,
         message: "Invalid password",
       });
     }
@@ -106,7 +106,7 @@ const loginUser = async (req, res) => {
     );
 
     const responseData = {
-      status: "success",
+      success: true,
       message: "Login Successful",
       user: userData,
       token: token,
@@ -116,10 +116,14 @@ const loginUser = async (req, res) => {
   } catch (error) {
     console.error("Error from user login", error);
     return res.status(500).json({
-      status: "error",
+      success: false,
       message: "Login failed",
     });
   }
 };
 
-module.exports = { loginUser, registerUser, getUsers };
+module.exports = {
+  loginUser,
+  registerUser,
+  getUsers,
+};

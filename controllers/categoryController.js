@@ -7,16 +7,17 @@ const addCategory = async (req, res) => {
     const { name, description } = req.body;
 
     if (!name) {
-      return res
-        .status(400)
-        .json({ message: "please provide name of category" });
+      return res.status(400).json({
+        success: false,
+        message: "please provide name of category",
+      });
     }
 
     const isAvailable = await CategoryModel.findOne({ name });
 
     if (isAvailable) {
       return res.status(400).json({
-        status: false,
+        success: false,
         message: "Category is alredy available",
       });
     }
@@ -26,14 +27,17 @@ const addCategory = async (req, res) => {
     });
 
     res.status(201).json({
-      status: "success",
+      success: true,
       message: "Category added successfully",
       category,
     });
   } catch (error) {
     console.error("Error from adding new category:\n", error);
 
-    res.status(500).json({ message: "Error in adding new category" });
+    res.status(500).json({
+      success: false,
+      message: "Error in adding new category",
+    });
   }
 };
 
@@ -46,7 +50,10 @@ const getCategories = async (req, res) => {
   } catch (error) {
     console.error("Error from getting all categories:\n", error);
 
-    res.status(500).json({ message: "Error in getting all categories" });
+    res.status(500).json({
+      success: false,
+      message: "Error in getting all categories",
+    });
   }
 };
 
