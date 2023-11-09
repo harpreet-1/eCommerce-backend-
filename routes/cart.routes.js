@@ -11,6 +11,8 @@ const authorization = require("../middlewares/auth");
 
 const cartRouter = express.Router();
 
+// Authentication
+
 cartRouter.use(authorization);
 
 cartRouter.get("/", viewCart);

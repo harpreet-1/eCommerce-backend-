@@ -7,6 +7,7 @@ const usersRouter = require("./routes/user.routes");
 const categoryRouter = require("./routes/category.routes");
 const productRouter = require("./routes/product.routes");
 const cartRouter = require("./routes/cart.routes");
+const orderRouter = require("./routes/order.routes");
 
 dotenv.config();
 const port = process.env.PORT || 8000;
@@ -23,6 +24,7 @@ app.use("/user", usersRouter);
 app.use("/category", categoryRouter);
 app.use("/product", productRouter);
 app.use("/cart", cartRouter);
+app.use("/order", orderRouter);
 
 app.listen(port, () => {
   dbConnection();
