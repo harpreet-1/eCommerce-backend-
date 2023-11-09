@@ -5,12 +5,14 @@ const swaggerJSdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
 const dbConnection = require("./db");
-const usersRouter = require("./routes/user.routes");
 
+// Routes
+const usersRouter = require("./routes/user.routes");
 const categoryRouter = require("./routes/category.routes");
 const productRouter = require("./routes/product.routes");
 const cartRouter = require("./routes/cart.routes");
 const orderRouter = require("./routes/order.routes");
+const limiter = require("./middlewares/rateLimit");
 
 dotenv.config();
 const port = process.env.PORT || 8000;
@@ -18,6 +20,9 @@ const port = process.env.PORT || 8000;
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+//  rate limiting middleware
+app.use(limiter);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to the triveous-server" });

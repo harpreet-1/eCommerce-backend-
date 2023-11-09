@@ -3,6 +3,7 @@ const {
   placeOrder,
   getOrderHistory,
   getSingleOrderDetails,
+  singleOrder,
 } = require("../controllers/orderController");
 const authorization = require("../middlewares/auth");
 
@@ -40,6 +41,37 @@ orderRouter.use(authorization);
  */
 
 orderRouter.post("/place", placeOrder);
+
+/**
+ * @swagger
+ * /order/single:
+ *   post:
+ *     summary: Place an order directly (without add in cart)
+ *     description: Place a new order with product items.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               deliveryAddress:
+ *                 type: string
+ *               deliveryDate:
+ *                 type: string
+ *               paymentMethod:
+ *                 type: string
+ *               quantity:
+ *                 type: number
+ *     responses:
+ *       201:
+ *         description: Order placed successfully
+ *       400:
+ *         description: Order placement failed
+ *       500:
+ *         description: Error placing the order
+ */
+
+orderRouter.post("/single", singleOrder);
 
 /**
  * @swagger

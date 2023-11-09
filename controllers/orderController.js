@@ -2,6 +2,7 @@ const express = require("express");
 const CartModel = require("../Models/Cart");
 const OrderModel = require("../Models/Order");
 const { default: mongoose } = require("mongoose");
+const ProductModel = require("../Models/Product");
 
 const placeOrder = async (req, res) => {
   try {
@@ -92,6 +93,58 @@ const placeOrder = async (req, res) => {
   }
 };
 
+const singleOrder = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { deliveryAddress, deliveryDate, paymentMethod, quantity } = req.body;
+    const productId = req.params.productId;
+
+    if (!deliveryAddress || !deliveryDate || !paymentMethod || !quantity) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Please provide required details" });
+    }
+
+    // Check if the product exists
+    const product = await ProductModel.findById(productId);
+
+    if (!product) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
+    }
+    if (product.stockQuantity < quantity) {
+      return res.status(404).json({
+        success: false,
+        message: `only ${product.stockQuantity} iteam are available in stock`,
+      });
+    }
+    const totalAmount = quantity * product.price;
+
+    const order = await OrderModel.create({
+      user: userId,
+      items: [
+        {
+          product: productId,
+          quantity: quantity,
+        },
+      ],
+      totalAmount,
+      deliveryAddress,
+      deliveryDate,
+      paymentMethod,
+    });
+
+    res
+      .status(201)
+      .json({ success: true, message: "Order placed successfully", order });
+  } catch (error) {
+    console.error("Error placing order--->", error);
+
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+};
+
 const getOrderHistory = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -122,4 +175,9 @@ const getSingleOrderDetails = async (req, res) => {
   }
 };
 
-module.exports = { placeOrder, getOrderHistory, getSingleOrderDetails };
+module.exports = {
+  placeOrder,
+  singleOrder,
+  getOrderHistory,
+  getSingleOrderDetails,
+};
