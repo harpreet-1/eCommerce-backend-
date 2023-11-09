@@ -107,6 +107,6 @@ orderRouter.get("/history", getOrderHistory);
  *       500:
  *         description: Error retrieving order details
  */
-orderRouter.get("/detail/:id", getSingleOrderDetails);
+orderRouter.get("/detail/:orderId", getSingleOrderDetails);
 
 module.exports = orderRouter;
