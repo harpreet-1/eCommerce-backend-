@@ -90,15 +90,15 @@ const loginUser = async (req, res) => {
         message: "Invalid password",
       });
     }
+    const userData = {
+      id: user._id,
+      username: user.username,
+      email,
+    };
 
     const token = jwt.sign(
-      {
-        user: {
-          id: user._id,
-          username: user.username,
-          email,
-        },
-      },
+      userData,
+
       process.env.JWT_SECRET_KEY,
       {
         expiresIn: "3d",
@@ -108,11 +108,7 @@ const loginUser = async (req, res) => {
     const responseData = {
       status: "success",
       message: "Login Successful",
-      user: {
-        username: user.username,
-        email,
-        userId: user._id,
-      },
+      user: userData,
       token: token,
     };
 
